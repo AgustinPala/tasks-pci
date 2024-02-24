@@ -219,4 +219,26 @@ public class TareasController {
             }
         }
     }
+
+    @PostMapping("tareas/estadisticas")
+    public void enviarEstadisticasTareas() {
+        List<Tarea> tareas = repository.findAll();
+        long totalTareas = tareas.size();
+        long tareasCompletadas = tareas.stream().filter(tarea -> tarea.getEstado() == Tarea.Estado.COMPLETA).count();
+        long tareasPendientes = tareas.stream().filter(tarea -> tarea.getEstado() == Tarea.Estado.PENDIENTE).count();
+
+        double porcentajeTareasCompletadas = (double) tareasCompletadas / totalTareas * 100;
+        double porcentajeTareasPendientes = (double) tareasPendientes / totalTareas * 100;
+
+        SlackMessage mensajeSlack = new SlackMessage();
+        mensajeSlack.setMessage(String.format("Estadísticas de tareas: :bar_chart:\n- Tareas completadas: %d (%.2f%%)\n- Tareas pendientes: %d (%.2f%%)",
+                tareasCompletadas, porcentajeTareasCompletadas, tareasPendientes, porcentajeTareasPendientes));
+        mensajeSlack.setEmoji("\n");
+
+        RestTemplate restTemplate = new RestTemplate();
+        HttpHeaders headers = new HttpHeaders();
+        headers.setContentType(MediaType.APPLICATION_JSON);
+        HttpEntity<SlackMessage> request = new HttpEntity<>(mensajeSlack, headers);
+        restTemplate.postForObject("http://localhost:8081/api/v1/slack", request, String.class);
+    }
 }
