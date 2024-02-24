@@ -23,12 +23,12 @@ public class Tarea {
 
     public Tarea() { };
 
-    public Tarea(String numeroDeRequerimiento, String descripcion, String titulo, List<Responsable> responsables, Estado estado, Prioridad prioridad) {
+    public Tarea(String numeroDeRequerimiento, String descripcion, String titulo, List<Responsable> responsables, Prioridad prioridad) {
         this.numeroDeRequerimiento = numeroDeRequerimiento;
         this.descripcion = descripcion;
         this.titulo = titulo;
         this.responsables = responsables;
-        this.estado = estado;
+        this.estado = Estado.PENDIENTE;
         this.prioridad = prioridad;
     }
 
