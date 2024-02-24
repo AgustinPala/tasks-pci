@@ -1,7 +1,6 @@
 package ar.edu.undef.fie.tasksPci.interfaces;
 
 import ar.edu.undef.fie.tasksPci.domain.entities.Proyecto;
-import ar.edu.undef.fie.tasksPci.domain.entities.Responsable;
 import ar.edu.undef.fie.tasksPci.domain.entities.Tarea;
 import ar.edu.undef.fie.tasksPci.infrastructure.ProyectoRepository;
 import org.springframework.hateoas.CollectionModel;
@@ -13,7 +12,6 @@ import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
-import static org.hibernate.Hibernate.size;
 import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.linkTo;
 import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.methodOn;
 

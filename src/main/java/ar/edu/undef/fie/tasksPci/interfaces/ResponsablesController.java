@@ -1,18 +1,13 @@
 package ar.edu.undef.fie.tasksPci.interfaces;
 
 import ar.edu.undef.fie.tasksPci.domain.entities.Responsable;
-import ar.edu.undef.fie.tasksPci.domain.entities.Tarea;
 import ar.edu.undef.fie.tasksPci.infrastructure.ResponsablesRepository;
-import org.antlr.v4.runtime.tree.pattern.ParseTreePattern;
-import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.hateoas.CollectionModel;
 import org.springframework.hateoas.EntityModel;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
