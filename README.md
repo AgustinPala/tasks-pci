@@ -40,3 +40,11 @@ Si deseas contribuir a este proyecto, por favor:
 2. Crea una nueva rama para tus cambios.
 3. Realizar tus cambios
 4. Envía un pull request detallando los cambios.
+
+## Mantenimiento
+
+Este proyecto es mantenido por [@AgustinPala](https://github.com/AgustinPala)
+
+## Base de Datos
+
+![imagen](https://github.com/AgustinPala/tasks-pci/assets/70532259/24506803-7cc1-45ed-acd0-f39680237ff7)
