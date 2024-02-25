@@ -26,6 +26,8 @@ public class ProyectoController {
 
     @GetMapping("proyectos")
     public CollectionModel<EntityModel<Proyecto>> obtenerTodosLosProyectos() {
+        //Cada proyecto se transforma en una nueva instabia de EntityModel<Proyecto> con links a sí mismo y a los enlaces de la colección
+        //Por que CollectionModel<>? para poder representar una colección de recursos en formato HATEOAS
         List<EntityModel<Proyecto>> proyectos = repository.findAll().stream()
                 .map(proyecto -> EntityModel.of(proyecto,
                         linkTo(methodOn(ProyectoController.class).obtenerProyecto(proyecto.getId())).withSelfRel(),
@@ -37,6 +39,7 @@ public class ProyectoController {
 
     @PostMapping("proyectos")
     public EntityModel<Proyecto> crearProyecto(@RequestBody Proyecto proyecto) {
+        // Por que EntityModel<>? para poder representar un recurso INDIVIDUAL en formato HATEOAS
         Proyecto nuevoProyecto = repository.save(proyecto);
         return EntityModel.of(nuevoProyecto,
                 linkTo(methodOn(ProyectoController.class).obtenerProyecto(nuevoProyecto.getId())).withSelfRel());
@@ -55,6 +58,7 @@ public class ProyectoController {
     public EntityModel<Proyecto> actualizarProyecto(@PathVariable Long id, @RequestBody Proyecto proyectoActualizado) {
         Proyecto proyecto = repository.findById(id)
                 .map(proyectoExistente -> {
+                    // Utilizo Optional para evitar la cadena de if-else
                     Optional.ofNullable(proyectoActualizado.getNombre()).ifPresent(proyectoExistente::setNombre);
                     Optional.ofNullable(proyectoActualizado.getDescripcion()).ifPresent(proyectoExistente::setDescripcion);
                     Optional.ofNullable(proyectoActualizado.getTareas()).ifPresent(tareas -> {

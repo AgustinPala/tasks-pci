@@ -18,7 +18,6 @@ public class SlackController {
     }
 
     @PostMapping("/slack")
-
     public void sendMessage(@RequestBody SlackMessage slackMessage) {
        String message = slackMessage.getMessage() + " " + slackMessage.getEmoji();
        slackService.sendMessage(message);

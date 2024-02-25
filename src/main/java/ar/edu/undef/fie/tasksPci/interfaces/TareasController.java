@@ -17,9 +17,8 @@ import org.springframework.web.client.RestTemplate;
 // https://spring.io/projects/spring-hateoas#samples
 // Es el proyecto oficial de Spring para implementar HATEOAS
 // Entramos a spring.io > Projects > Spring HATEOAS
-// En la parte de 3.3 Affordances esta como lo aplique
+// En la parte de 3.3 Affordances esta como lo aplique en el proyecto
 
-import org.springframework.hateoas.RepresentationModel;
 import org.springframework.hateoas.EntityModel;
 import org.springframework.hateoas.Link;
 import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.linkTo;
@@ -101,14 +100,17 @@ public class TareasController {
         return ResponseEntity.ok("Tarea con id " + id + " eliminada correctamente.");
     }
 
-    // Porque un POST, si no estamos creando nada?
-    // Porque estamos modificando el estado de la aplicación
-    // Estamos creando una nueva acción en el servidor
-    // En términos de REST, estamos creando un nuevo recurso
-    // por lo que veo correcto utilizar un POST
+    // Porque un POST, si no estamos creando nada? porque estamos modificando el estado de la aplicación
+    // Estamos creando una nueva acción en el servidor. En términos de REST, estamos creando un nuevo recurso
+    // por lo que veo correcto utilizar un POST.
 
     @PostMapping("tareas/slack")
     public RepresentationModel<?> enviarMensajesSlack() {
+        // Por que utilizo RepresentationModel<>? porque quiero devolver un modelo con links a otros recursos
+        // RepresentationModel<?> lo utiliza en este método para representar un recurso que puede tener enlaces
+        // asociados, siguiendo el principio HATEOAS.
+        // Porque utilizo el <?> en RepresentationModel<?>? porque no se sabe el tipo de recurso que se va a devolver,
+        // ya que no restrinjo el tipo de recurso devuelto por el método.
         enviarMensajeTareasPorEstado(Tarea.Estado.PENDIENTE);
         enviarMensajeTareasPorEstado(Tarea.Estado.COMPLETA);
 
@@ -116,9 +118,9 @@ public class TareasController {
         Link tareasCompletasLink = linkTo(methodOn(TareasController.class).enviarMensajeTareasCompletas()).withRel("tareasCompletas");
         Link allTaskLink = linkTo(methodOn(TareasController.class).obtenerTodasLasTareas()).withRel("tareas");
 
+        // Creo un modelo de representación con los enlaces a los recursos para devolverlo como respuesta
         RepresentationModel<?> model = new RepresentationModel<>();
         model.add(allTaskLink, tareasPendientesLink, tareasCompletasLink);
-
         return model;
     }
 
@@ -182,7 +184,7 @@ public class TareasController {
         }
     }
 
-    // El formato aca es el correcto :D
+    // Schedule para enviar mensajes recurrentes, seteado a las 10 am
     @Scheduled(cron = "0 00 10 * * ?")
     public void enviarMensajeRecurrentes() {
         List<Tarea> tareas = repository.findAll();

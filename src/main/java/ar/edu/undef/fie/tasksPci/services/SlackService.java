@@ -20,7 +20,7 @@ public class SlackService {
     }
 
     public void sendMessage(String message) {
-        String url = "https://hooks.slack.com/services/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";
+        String url = "https://hooks.slack.com/services/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"; // Aca va el webhook de slack, propio de mi canal o de otro (si lo quieren probar)
 
         //Armamos el body en un HashMap
         Map<String, String> messageBuilder = new HashMap<>();
