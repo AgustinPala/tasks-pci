@@ -40,4 +40,3 @@ Si deseas contribuir a este proyecto, por favor:
 2. Crea una nueva rama para tus cambios.
 3. Realizar tus cambios
 4. Envía un pull request detallando los cambios.
-5. 
